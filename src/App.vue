@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="relative h-screen col-8 col-offset-2 p-0">
     <router-view />
   </div>
 </template>
@@ -13,16 +13,14 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+$primary-color: #3af0aa;
+$secondary-color: #3cfa7b;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+html {
+  background-image: linear-gradient(
+    to bottom right,
+    $primary-color,
+    $secondary-color
+  );
 }
 </style>
