@@ -6,6 +6,7 @@ import { useRouter, useRoute } from "vue-router";
 import Button from "primevue/button";
 import Password from "primevue/password";
 import InputText from "primevue/inputtext";
+import { ApiService } from "@/services/ApiService";
 
 const eventStore = useEventStore();
 const userStore = useUserStore();
@@ -23,8 +24,26 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const a = ref(props.test2);
 
-const signup = () => {
+const goSignup = () => {
   router.push("/signup");
+};
+// const authClient = axios.create({
+//   baseURL: process.env.VUE_APP_API_URL,
+//   withCredentials: true, // required to handle the CSRF token
+// });
+const login = async () => {
+  return ApiService.post(
+    "/login",
+    {
+      email: "a2ssxesd@a2.com",
+      password: "987654321",
+    },
+    {
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  );
 };
 </script>
 
@@ -32,7 +51,7 @@ const signup = () => {
   <div
     class="bg-no-repeat w-full h-full bg-center grid"
     style="
-      background-image: url('../assets/pexels-victor-freitas-841130.jpg');
+      background-image: url('../assets/images/pexels-victor-freitas-841130.jpg');
       background-size: 100%;
     "
   >
@@ -59,7 +78,7 @@ const signup = () => {
       <Button
         class="p-button-success col-2"
         label="Register"
-        @click="signup()"
+        @click="login()"
       />
       <h4 class="pt-5">I'm not a robot... Yet.</h4>
     </form>

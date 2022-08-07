@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEventStore } from "../store/eventStore";
 import { useUserStore } from "../store/userStore";
+import { useRouter, useRoute } from "vue-router";
 import { ref } from "vue";
 import Button from "primevue/button";
 import Password from "primevue/password";
@@ -8,6 +9,7 @@ import InputText from "primevue/inputtext";
 
 const eventStore = useEventStore();
 const userStore = useUserStore();
+const router = useRouter();
 interface Props {
   initialCount?: number;
   test1?: number;
@@ -20,13 +22,17 @@ const props = withDefaults(defineProps<Props>(), {
   test2: 22,
 });
 const a = ref(props.test2);
+
+const goLogin = () => {
+  router.push("/");
+};
 </script>
 
 <template>
   <div
     class="bg-no-repeat w-full h-full bg-center grid"
     style="
-      background-image: url('../assets/pexels-victor-freitas-841130.jpg');
+      background-image: url('../assets/images/pexels-victor-freitas-841130.jpg');
       background-size: 100%;
     "
   >
@@ -57,7 +63,7 @@ const a = ref(props.test2);
       </div>
       <Button class="p-button-success col-2" label="Register" />
       <div class="col-4"></div>
-      <Button class="col-2 mt-2" label="Login" />
+      <Button class="col-2 mt-2" label="Login" @click="goLogin" />
       <h4 class="pt-5">I'm not a robot... Yet.</h4>
     </form>
   </div>
