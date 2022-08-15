@@ -22,5 +22,6 @@ html {
     $primary-color,
     $secondary-color
   );
+  height: 100vh;
 }
 </style>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import LogIn from "../views/LogIn.vue";
 import SignUp from "../views/SignUp.vue";
+import DashBoard from "../views/DashBoard.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,8 +11,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/signup",
-    name: "sign-up",
+    name: "signup",
     component: SignUp,
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: DashBoard,
   },
 ];
 

@@ -1,38 +1,47 @@
 <script setup lang="ts">
-import { useEventStore } from "../store/eventStore";
-import { useUserStore } from "../store/userStore";
+// import { useEventStore } from "../store/eventStore";
+// import { useUserStore } from "../store/userStore";
 import { ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import Button from "primevue/button";
 import Password from "primevue/password";
 import InputText from "primevue/inputtext";
+import authClient from "@/services/AuthClient";
 
-const eventStore = useEventStore();
-const userStore = useUserStore();
+// const eventStore = useEventStore();
+// const userStore = useUserStore();
 const router = useRouter();
-interface Props {
-  initialCount?: number;
-  test1?: number;
-  test2?: number;
-}
+// interface Props {
+//   initialCount?: number;
+//   test1?: number;
+//   test2?: number;
+//   email: string;
+// }
 
-const props = withDefaults(defineProps<Props>(), {
-  initialCount: 0,
-  test1: 1,
-  test2: 22,
-});
-const a = ref(props.test2);
+// const props = withDefaults(defineProps<Props>(), {
+//   initialCount: 0,
+//   test1: 1,
+//   test2: 22,
+// });
+const email = ref<string>("");
+const password = ref<string>("");
 
 const signup = () => {
   router.push("/signup");
+};
+
+const login = async () => {
+  return authClient
+    .login({ email: email.value, password: password.value })
+    .then((response) => console.log(response));
 };
 </script>
 
 <template>
   <div
-    class="bg-no-repeat w-full h-full bg-center grid"
+    class="bg-no-repeat w-full h-full p-0 m-0 bg-center grid"
     style="
-      background-image: url('../assets/pexels-victor-freitas-841130.jpg');
+      background-image: url('../assets/images/pexels-mister-mister-3490348.jpg');
       background-size: 100%;
     "
   >
@@ -45,16 +54,16 @@ const signup = () => {
       <div class="field grid">
         <label for="firstname3" class="col-3 col-offset-2">E-mail</label>
         <div class="col-3">
-          <InputText type="email" />
+          <InputText type="email" v-model="email" />
         </div>
       </div>
       <div class="field grid">
         <label for="lastname3" class="col-3 col-offset-2">Password</label>
         <div class="col-3">
-          <Password :feedback="false" />
+          <Password :feedback="false" v-model="password" />
         </div>
       </div>
-      <Button class="col-2 mt-2" label="Login" />
+      <Button class="col-2 mt-2" label="Login" @click="login" />
       <div class="col-4"></div>
       <Button
         class="p-button-success col-2"
