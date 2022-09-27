@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // import { useEventStore } from "../store/eventStore";
+import { useToast } from "primevue/usetoast";
 import { useUserStore } from "../store/userStore";
 import { ref, computed } from "vue";
 import Button from "primevue/button";
@@ -24,6 +25,7 @@ import router from "@/router";
 // });
 const userStore = useUserStore();
 const emailError = ref<string>("p-invalid");
+const toast = useToast();
 const emailIsError = computed(() => {
   if (
     email.value.length > 0 &&
@@ -37,7 +39,7 @@ const emailIsError = computed(() => {
   }
 });
 const passwordError = computed(() => {
-  if (password.value.length >= 1) {
+  if (password.value.length < 1) {
     return true;
   } else {
     return false;
@@ -57,17 +59,26 @@ const login = async () => {
   return authClient
     .login(userData)
     .then((response) => {
+      console.log("response", response);
       userStore.toggleLoading(false);
-      let user: string = response.data.user.name
-        ? response.data.user.name
-        : response.data.name;
+      let user: string = response.data.name;
+      console.log(response);
       let token: string = response.data.token ? response.data.token : "";
       userStore.setUser(user);
       userStore.authenticateUser(token);
       router.push({ name: "dashboard" });
     })
     .catch((error) => {
-      console.log(error);
+      console.log("error", error);
+      userStore.toggleLoading(false);
+      toast.add({
+        severity: "error",
+        summary: "ERROR",
+        detail: error.response.data.message
+          ? error.response.data.message
+          : "There was a problem logging in",
+        life: 3000,
+      });
     });
 };
 </script>

@@ -6,6 +6,7 @@ import WorkOutsView from "../views/WorkOutsView.vue";
 import NutritionPlansView from "../views/NutritionPlansView.vue";
 import StatisticsView from "../views/StatisticsView.vue";
 import TrainingsView from "../views/TrainingsView.vue";
+import NowTesting from "../views/NowTesting.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -44,9 +45,14 @@ const routes: Array<RouteRecordRaw> = [
     component: WorkOutsView,
   },
   {
-    path: "/training",
-    name: "training",
+    path: "/trainings",
+    name: "trainings",
     component: TrainingsView,
+  },
+  {
+    path: "/testing",
+    name: "testing",
+    component: NowTesting,
   },
 ];
 

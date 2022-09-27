@@ -1,5 +1,10 @@
+<script setup lang="ts">
+import Toast from "primevue/toast";
+</script>
+
 <template>
   <div id="app" class="relative h-screen col-8 col-offset-2 p-0">
+    <Toast />
     <router-view />
   </div>
 </template>

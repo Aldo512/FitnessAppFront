@@ -1,6 +1,7 @@
 import axios from "axios";
 import store from "@/store";
 import { newUser, loginUser } from "@/types/userTypes";
+import { newNutritionPlan, nutritionPlans } from "@/types/dataTypes";
 
 export const authClient = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
@@ -58,5 +59,13 @@ export default {
   },
   updateUser(payload: string) {
     return authClient.put("/user/profile-information", payload);
+  },
+  async nutritionPlans() {
+    await authClient.get("/sanctum/csrf-cookie");
+    return authClient.get("/api/nutrition_plan");
+  },
+  async createNutritionPlan(payload: newNutritionPlan) {
+    await authClient.get("/sanctum/csrf-cookie");
+    return authClient.post("/api/nutrition_plan", payload);
   },
 };
