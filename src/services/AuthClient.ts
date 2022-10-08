@@ -61,11 +61,12 @@ export default {
     return authClient.put("/user/profile-information", payload);
   },
   async nutritionPlans() {
-    await authClient.get("/sanctum/csrf-cookie");
     return authClient.get("/api/nutrition_plan");
   },
+  async getNutritionPlan(payload: number) {
+    return authClient.get("/api/nutrition_plan/" + payload);
+  },
   async createNutritionPlan(payload: newNutritionPlan) {
-    await authClient.get("/sanctum/csrf-cookie");
     return authClient.post("/api/nutrition_plan", payload);
   },
 };

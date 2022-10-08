@@ -6,7 +6,8 @@ export const useNutritionStore = defineStore("NutritionStore", {
     nutritionPlansData: [] as nutritionPlans[],
   }),
   getters: {
-    getNutritionPlansData: (state) => state.nutritionPlansData,
+    getNutritionPlansData: (state): nutritionPlans[] =>
+      state.nutritionPlansData,
   },
   actions: {
     setNutritionPlansData(payload: []) {
@@ -14,6 +15,11 @@ export const useNutritionStore = defineStore("NutritionStore", {
     },
     addNutritionPlanData(payload: nutritionPlans) {
       this.nutritionPlansData.push(payload);
+    },
+    deleteNutritionPlan(payload: number) {
+      return this.nutritionPlansData.find((obj) => {
+        return obj.id == 1;
+      });
     },
   },
 });

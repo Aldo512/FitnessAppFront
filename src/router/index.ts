@@ -6,22 +6,27 @@ import WorkOutsView from "../views/WorkOutsView.vue";
 import NutritionPlansView from "../views/NutritionPlansView.vue";
 import StatisticsView from "../views/StatisticsView.vue";
 import TrainingsView from "../views/TrainingsView.vue";
-import NowTesting from "../views/NowTesting.vue";
+import NutritionPlan from "../views/NutritionPlan.vue";
+import CreateNutritionPlan from "../views/CreateNutritionPlan.vue";
+import { useUserStore } from "../store/userStore";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: LogIn,
+    meta: { layout: "no-sidebar" },
+    redirect: "/login",
   },
   {
     path: "/login",
     name: "login",
+    meta: { layout: "no-sidebar" },
     component: LogIn,
   },
   {
     path: "/signup",
     name: "signup",
+    meta: { layout: "no-sidebar" },
     component: SignUp,
   },
   {
@@ -33,6 +38,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/nutrition",
     name: "nutrition",
     component: NutritionPlansView,
+  },
+  {
+    path: "/nutrition/:id",
+    name: "nutritionPlan",
+    component: NutritionPlan,
+  },
+  {
+    path: "/create_nutrition",
+    name: "createNutritionPlan",
+    component: CreateNutritionPlan,
   },
   {
     path: "/statistics",
@@ -49,11 +64,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "trainings",
     component: TrainingsView,
   },
-  {
-    path: "/testing",
-    name: "testing",
-    component: NowTesting,
-  },
 ];
 
 const router = createRouter({
@@ -62,8 +72,15 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  console.log(to.path);
-  console.log(from.path);
-  return true;
+  const userStore = useUserStore();
+  if (
+    // make sure the user is authenticated
+    !userStore.isAuthenticated &&
+    // ❗️ Avoid an infinite redirect
+    to.name !== "login"
+  ) {
+    // redirect the user to the login page
+    return { name: "login" };
+  }
 });
 export default router;

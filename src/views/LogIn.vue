@@ -59,17 +59,13 @@ const login = async () => {
   return authClient
     .login(userData)
     .then((response) => {
-      console.log("response", response);
       userStore.toggleLoading(false);
       let user: string = response.data.name;
-      console.log(response);
-      let token: string = response.data.token ? response.data.token : "";
       userStore.setUser(user);
-      userStore.authenticateUser(token);
+      userStore.authenticateUser();
       router.push({ name: "dashboard" });
     })
     .catch((error) => {
-      console.log("error", error);
       userStore.toggleLoading(false);
       toast.add({
         severity: "error",
@@ -98,9 +94,7 @@ const login = async () => {
       <h1 class="p-3">Welcome to FitnessApp!</h1>
       <h3 class="pb-5">Please log-in to continue</h3>
       <div class="field grid">
-        <label for="firstname3" class="col-3 col-offset-2 p-invalid"
-          >E-mail</label
-        >
+        <label for="email" class="col-3 col-offset-2 p-invalid">E-mail</label>
         <div class="col-4">
           <InputText
             :class="[emailIsError ? emailError : '']"
@@ -115,7 +109,7 @@ const login = async () => {
         </div>
       </div>
       <div class="field grid">
-        <label for="lastname3" class="col-3 col-offset-2">Password</label>
+        <label for="password" class="col-3 col-offset-2">Password</label>
         <div class="col-4">
           <Password
             :feedback="false"
