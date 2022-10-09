@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { useEventStore } from "../store/eventStore";
 import { useToast } from "primevue/usetoast";
 import { useUserStore } from "../store/userStore";
 import { ref, computed } from "vue";
@@ -10,19 +9,6 @@ import authClient from "@/services/AuthClient";
 import { loginUser } from "@/types/userTypes";
 import router from "@/router";
 
-// const eventStore = useEventStore();
-// interface Props {
-//   initialCount?: number;
-//   test1?: number;
-//   test2?: number;
-//   email: string;
-// }
-
-// const props = withDefaults(defineProps<Props>(), {
-//   initialCount: 0,
-//   test1: 1,
-//   test2: 22,
-// });
 const userStore = useUserStore();
 const emailError = ref<string>("p-invalid");
 const toast = useToast();

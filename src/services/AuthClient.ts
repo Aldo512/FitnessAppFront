@@ -69,4 +69,7 @@ export default {
   async createNutritionPlan(payload: newNutritionPlan) {
     return authClient.post("/api/nutrition_plan", payload);
   },
+  async deleteNutritionPlan(payload: number) {
+    return authClient.delete("/api/nutrition_plan/" + payload);
+  },
 };

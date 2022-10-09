@@ -17,8 +17,10 @@ export const useNutritionStore = defineStore("NutritionStore", {
       this.nutritionPlansData.push(payload);
     },
     deleteNutritionPlan(payload: number) {
-      return this.nutritionPlansData.find((obj) => {
-        return obj.id == 1;
+      this.nutritionPlansData.filter((obj, index) => {
+        if (obj.id === payload) {
+          this.nutritionPlansData.splice(index, 1);
+        }
       });
     },
   },

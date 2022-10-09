@@ -4,7 +4,10 @@ import { useNutritionStore } from "../store/nutritionStore";
 import authClient from "@/services/AuthClient";
 import Button from "primevue/button";
 import { nutritionPlans } from "@/types/dataTypes";
-import { ref, computed } from "vue";
+import { ref } from "vue";
+import { useConfirm } from "primevue/useconfirm";
+import ConfirmDialog from "primevue/confirmdialog";
+import router from "@/router";
 
 const nutritionStore = useNutritionStore();
 
@@ -18,8 +21,21 @@ const nutritionData = ref<nutritionPlans>({
 
 const planId: number = parseInt(route.params.id[0]);
 const deletePost = () => {
-  console.table(nutritionStore.getNutritionPlansData);
-  console.log(nutritionStore.deleteNutritionPlan(1));
+  nutritionStore.deleteNutritionPlan(planId);
+  authClient.deleteNutritionPlan(planId);
+  router.push("/nutrition");
+};
+const confirm = useConfirm();
+
+const confirmDeletion = () => {
+  confirm.require({
+    message: "Are you sure you want to proceed?",
+    header: "Confirmation",
+    icon: "pi pi-exclamation-triangle",
+    accept: () => {
+      deletePost();
+    },
+  });
 };
 authClient.getNutritionPlan(planId).then((response) => {
   nutritionData.value = response.data;
@@ -42,7 +58,12 @@ authClient.getNutritionPlan(planId).then((response) => {
       >
         Creator
       </div>
-      <Button label="Delete post" @click="deletePost" class="p-button-danger" />
+      <ConfirmDialog></ConfirmDialog>
+      <Button
+        label="Delete post"
+        @click="confirmDeletion"
+        class="p-button-danger"
+      />
       <div
         class="flex align-items-center justify-content-center col-3"
         style="border-bottom: 1px solid gray"
