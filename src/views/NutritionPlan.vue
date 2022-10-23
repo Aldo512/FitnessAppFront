@@ -43,6 +43,16 @@ authClient.getNutritionPlan(planId).then((response) => {
 </script>
 <template>
   <section class="bg-white">
+    <Button
+      label="Update post"
+      @click="router.push('/update_nutrition/' + route.params.id[0])"
+      class="p-button-warning mr-2"
+    />
+    <Button
+      label="Delete post"
+      @click="confirmDeletion"
+      class="p-button-danger ml-2"
+    />
     <div
       class="flex flex-row flex-wrap card-container blue-container mt-5 pb-6"
     >
@@ -59,11 +69,6 @@ authClient.getNutritionPlan(planId).then((response) => {
         Creator
       </div>
       <ConfirmDialog></ConfirmDialog>
-      <Button
-        label="Delete post"
-        @click="confirmDeletion"
-        class="p-button-danger"
-      />
       <div
         class="flex align-items-center justify-content-center col-3"
         style="border-bottom: 1px solid gray"
@@ -78,7 +83,7 @@ authClient.getNutritionPlan(planId).then((response) => {
       </div>
     </div>
   </section>
-  <section class="bg-white h-auto" style="min-height: 100vh">
+  <section class="bg-white h-auto p-5" style="min-height: 100vh">
     <h1 class="pb-5">{{ nutritionData.title }}</h1>
     <h2 class="pb-5">{{ nutritionData.description }}</h2>
     <hr class="mb-6" style="border-bottom: 1px solid gray" />

@@ -8,6 +8,7 @@ import StatisticsView from "../views/StatisticsView.vue";
 import TrainingsView from "../views/TrainingsView.vue";
 import NutritionPlan from "../views/NutritionPlan.vue";
 import CreateNutritionPlan from "../views/CreateNutritionPlan.vue";
+import UpdateNutritionPlan from "../views/UpdateNutritionPlan.vue";
 import { useUserStore } from "../store/userStore";
 
 const routes: Array<RouteRecordRaw> = [
@@ -48,6 +49,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/create_nutrition",
     name: "createNutritionPlan",
     component: CreateNutritionPlan,
+  },
+  {
+    path: "/update_nutrition/:id",
+    name: "updateNutritionPlan",
+    component: UpdateNutritionPlan,
   },
   {
     path: "/statistics",
